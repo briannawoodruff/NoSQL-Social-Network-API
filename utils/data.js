@@ -1,6 +1,9 @@
 // random-email npm package
 var randomEmail = require('random-email');
 
+// date format
+var { format_date } = require('./dateFormat')
+
 //  leveraged from 18-NoSQL/01-Activities/28-Stu_Mini_Project/Main/Utils/data.js
 const names = [
     "Aaran",
@@ -8,7 +11,6 @@ const names = [
     "Aarez",
     "Aarman",
     "Aaron",
-    "Aaron-James",
     "Aarron",
     "Aaryan",
     "Aaryn",
@@ -22,13 +24,11 @@ const names = [
     "Abdirahman",
     "Abdisalam",
     "Abdul",
-    "Abdul-Aziz",
     "Abdulbasir",
     "Abdulkadir",
     "Abdulkarem",
     "Smith",
     "Jones",
-    "Coollastname",
     "Ze",
     "Zechariah",
     "Zeek",
@@ -122,19 +122,52 @@ const getRandomUsername = () =>
 const getRandomEmail = () =>
     `${randomEmail()}`;
 
-// Function to generate random thoughts to addto the database. Includes reactions.
-// const getRandomThought = (int) => {
-//   let results = [];
-//   for (let i = 0; i < int; i++) {
-//     results.push({
-//       published: Math.random() < 0.5,
-//       description: getRandomArrItem(descriptionsBodies),
-//       advertiserFriendly: Math.random() < 0.5,
-//       responses: [...getVideoResponses(3)],
-//     });
-//   }
-//   return results;
-// };
+// Function to generate random amount of friends.
+const getRandomFriends = (int) => {
+    const results = [];
+    for (let i = 0; i < int; i++) {
+      results.push({
+        username: getRandomUsername(),
+      });
+    }
+    return results;
+  };
+
+// Function to generate random thoughts to add to the database. Includes reactions.
+const getRandomThought = (int) => {
+  const results = [];
+  for (let i = 0; i < int; i++) {
+      if (int > 3) {
+          results.push({
+            thoughtText: getRandomArrItem(thoughtBodies),
+            createdAt: format_date,
+            username: getRandomUsername(),
+          //   reactions: [...getRandomReactions(2)],
+          });
+      } else {
+        results.push({
+            thoughtText: getRandomArrItem(thoughtBodies),
+            createdAt: format_date,
+          });
+      }
+  }
+  return results;
+};
+
+// Create the reactions that will be added to each thought
+// const getRandomReactions = (int) => {
+//     if (int === 1) {
+//       return getRandomArrItem(possibleReactions);
+//     }
+//     let results = [];
+//     for (let i = 0; i < int; i++) {
+//       results.push({
+//         responseBody: getRandomArrItem(possibleReactions),
+//         username: getRandomName(),
+//       });
+//     }
+//     return results;
+//   };  
 
 // Export the functions for use in seed.js
-module.exports = { getRandomUsername, getRandomEmail };
+module.exports = { getRandomUsername, getRandomEmail, getRandomFriends, getRandomThought };

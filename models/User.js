@@ -22,18 +22,18 @@ const userSchema = new Schema(
             required: true,
             validate: [validateEmail, 'invalid email']
         },
-        // thoughts: [
-        //     {
-        //         type: Schema.Types.ObjectId,
-        //         ref: 'Thought',
-        //     },
-        // ],
-        // friends: [
-        //     {
-        //         type: Schema.Types.ObjectId,
-        //         ref: 'User',
-        //     },
-        // ],
+        thoughts: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Thought',
+            },
+        ],
+        friends: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'User',
+            },
+        ],
     },
     {
         toJSON: {
@@ -42,19 +42,13 @@ const userSchema = new Schema(
     }
 );
 
-// Create a virtual property `friendCount` that gets and sets the user's full name
-// userSchema
-//     .virtual('friendCount')
-//     // Getter
-//     .get(function () {
-//         const friendCount = this.friends.reduce((counter, obj) => obj ? counter += 1 : counter, 0);
-//         return `${friendCount}`;
-//     })
-//     // Setter to set the first and last name
-//     .set(function (v) {
-//         const friendCount = v
-//         this.set(friendCount);
-//     });
+// Create a virtual property `friendCount` that gets friend count
+userSchema
+    .virtual('friendCount')
+    // Getter
+    .get(function () {
+        return this.friends.length;
+      });
 
 // Initialize our User model
 const User = model('user', userSchema);
