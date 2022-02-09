@@ -30,7 +30,7 @@ connection.once('open', async () => {
   
     // add users into collection
     await User.collection.insertMany(users);
-    await Thought.collection.insertMany(thought)
+    await Thought.collection.insertMany(thought);
   
     console.table(users);
     console.table(thought);

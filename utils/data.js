@@ -103,6 +103,16 @@ const possibleReactions = [
     "It's rought out here.",
     "Okay...",
     "Why though",
+    "Did you make that up?",
+    "Why's this important",
+    "I think about that all the time",
+    "This is the bad place",
+    "Can you not",
+    "I get it too",
+    "IQ 160",
+    "Facts",
+    "Does that matter though",
+    "Doesn't change anything imo"
 ];
 
 const users = [];
@@ -140,14 +150,14 @@ const getRandomThought = (int) => {
       if (int > 3) {
           results.push({
             thoughtText: getRandomArrItem(thoughtBodies),
-            createdAt: format_date,
+            // createdAt: format_date,
             username: getRandomUsername(),
-          //   reactions: [...getRandomReactions(2)],
+            reactions: [...getRandomReactions(2)],
           });
       } else {
         results.push({
             thoughtText: getRandomArrItem(thoughtBodies),
-            createdAt: format_date,
+            // createdAt: format_date,
           });
       }
   }
@@ -155,19 +165,19 @@ const getRandomThought = (int) => {
 };
 
 // Create the reactions that will be added to each thought
-// const getRandomReactions = (int) => {
-//     if (int === 1) {
-//       return getRandomArrItem(possibleReactions);
-//     }
-//     let results = [];
-//     for (let i = 0; i < int; i++) {
-//       results.push({
-//         responseBody: getRandomArrItem(possibleReactions),
-//         username: getRandomName(),
-//       });
-//     }
-//     return results;
-//   };  
+const getRandomReactions = (int) => {
+    if (int === 1) {
+      return getRandomArrItem(possibleReactions);
+    }
+    let results = [];
+    for (let i = 0; i < int; i++) {
+      results.push({
+        reactionBody: getRandomArrItem(possibleReactions),
+        username: getRandomUsername(),
+      });
+    }
+    return results;
+  };  
 
 // Export the functions for use in seed.js
 module.exports = { getRandomUsername, getRandomEmail, getRandomFriends, getRandomThought };
