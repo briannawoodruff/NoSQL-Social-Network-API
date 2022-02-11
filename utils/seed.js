@@ -2,7 +2,7 @@ const connection = require('../config/connection');
 const { User, Thought } = require('../models');
 
 // require functions from data.js
-const { getRandomUsername, getRandomEmail, getRandomThought, genRandomIndex } = require('./data');
+const { getRandomUsername, getRandomEmail, getRandomThoughtText, genRandomIndex } = require('./data');
 
 // if connection error
 connection.on('error', (err) => err);
@@ -22,24 +22,24 @@ connection.once('open', async () => {
     thoughts.push({
       thoughtText,
       username: users[genRandomIndex(users)]._id,
+      reactions: [],
     });
   };
 
   // Function to generate 2 friends
   const addFriends = (person) => {
-      const friendArr = person.friends
+    const friendArr = person.friends
 
-      const friendID = users.map(friend => friend._id)
-      const oneID = friendID[Math.floor(Math.random() * friendID.length)];
-    
-      friendArr.push(oneID)
-      friendArr.push(oneID)
+    const friendID = users.map(friend => friend._id)
+    const oneID = friendID[Math.floor(Math.random() * friendID.length)];
+
+    friendArr.push(oneID)
   };
 
   // Create 20 random users and push them into the users array
   for (let i = 0; i < 20; i++) {
     const username = getRandomUsername();
-    
+
     users.push({
       username,
       email: getRandomEmail(),
@@ -50,18 +50,18 @@ connection.once('open', async () => {
 
   // Wait for the users to be inserted into the database
   User.collection.insertMany(users);
-  
+
   // For each of the users that exist, make 1 random thought and add friends
   users.forEach((friend) => {
-    makeThought(getRandomThought(1));
+    makeThought(getRandomThoughtText());
     addFriends(friend);
   });
-  
+
   // Wait for the thoughts array to be inserted into the database
   await Thought.collection.insertMany(thoughts);
 
   // Log out a table for users and posts
-  console.table(users);
+  console.table(users, ['username', 'email', 'thoughts', 'friends', '_id']);
   console.table(thoughts, ['thoughtText', 'username', '_id']);
   console.info('Seeding complete! 🌱');
   process.exit(0);

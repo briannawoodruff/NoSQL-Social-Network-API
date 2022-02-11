@@ -44,17 +44,12 @@ const userSchema = new Schema(
     }
 );
 
-
-
 // Create a virtual property `friendCount` that gets friend count
 userSchema
     .virtual('friendCount')
     // Getter
     .get(function () {
-        // const count = this.friends.reduce(( previousValue, currentValue ) => previousValue + currentValue, 0)
-        // console.log(count)
         return this.friends.length
-        // console.log(this.friends)
       });
 
 // Initialize our User model

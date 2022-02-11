@@ -2,7 +2,7 @@
 var randomEmail = require('random-email');
 
 // date format
-var { format_date } = require('./dateFormat')
+// var { format_date } = require('./dateFormat')
 
 //  leveraged from 18-NoSQL/01-Activities/28-Stu_Mini_Project/Main/Utils/data.js
 const names = [
@@ -115,8 +115,6 @@ const possibleReactions = [
     "Doesn't change anything imo"
 ];
 
-const users = [];
-
 // Get a random item given an array
 const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
@@ -134,53 +132,11 @@ const getRandomUsername = () =>
 const getRandomEmail = () =>
     `${randomEmail()}`;
 
-// Function to generate random amount of friends.
-const getRandomFriends = (int) => {
-    const results = [];
-    for (let i = 0; i < int; i++) {
-      results.push({
-        friends: [users[genRandomIndex(users)]._id]
-      });
-    }
-    // console.log(results)
-    return results
-  };
-
-// Function to generate random thoughts to add to the database. Includes reactions.
-const getRandomThought = (int) => {
-  const results = [];
-  for (let i = 0; i < int; i++) {
-      if (int > 3) {
-          results.push({
-            thoughtText: getRandomArrItem(thoughtBodies),
-            // createdAt: format_date,
-            // username: getRandomUsername(),
-            reactions: [...getRandomReactions(2)],
-          });
-      } else {
-        results.push({
-            thoughtText: getRandomArrItem(thoughtBodies),
-            // createdAt: format_date,
-          });
-      }
-  }
-  return results;
+// Get random thoughtText
+const getRandomThoughtText = () => {
+  return `${getRandomArrItem(thoughtBodies)}`
 };
 
-// Create the reactions that will be added to each thought
-const getRandomReactions = (int) => {
-    if (int === 1) {
-      return getRandomArrItem(possibleReactions);
-    }
-    let results = [];
-    for (let i = 0; i < int; i++) {
-      results.push({
-        reactionBody: getRandomArrItem(possibleReactions),
-        username: getRandomUsername(),
-      });
-    }
-    return results;
-  };  
 
 // Export the functions for use in seed.js
-module.exports = { getRandomUsername, getRandomEmail, getRandomFriends, getRandomThought, genRandomIndex };
+module.exports = { getRandomUsername, getRandomEmail, getRandomThoughtText, genRandomIndex };
