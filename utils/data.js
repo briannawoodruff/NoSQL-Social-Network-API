@@ -120,6 +120,8 @@ const users = [];
 // Get a random item given an array
 const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
+const genRandomIndex = (arr) => Math.floor(Math.random() * arr.length);
+
 // Gets a random number for username
 const getRandomNumber = () =>
     `${Math.floor(Math.random() * 100)}`;
@@ -137,10 +139,11 @@ const getRandomFriends = (int) => {
     const results = [];
     for (let i = 0; i < int; i++) {
       results.push({
-        username: getRandomUsername(),
+        friends: [users[genRandomIndex(users)]._id]
       });
     }
-    return results;
+    // console.log(results)
+    return results
   };
 
 // Function to generate random thoughts to add to the database. Includes reactions.
@@ -151,7 +154,7 @@ const getRandomThought = (int) => {
           results.push({
             thoughtText: getRandomArrItem(thoughtBodies),
             // createdAt: format_date,
-            username: getRandomUsername(),
+            // username: getRandomUsername(),
             reactions: [...getRandomReactions(2)],
           });
       } else {
@@ -180,4 +183,4 @@ const getRandomReactions = (int) => {
   };  
 
 // Export the functions for use in seed.js
-module.exports = { getRandomUsername, getRandomEmail, getRandomFriends, getRandomThought };
+module.exports = { getRandomUsername, getRandomEmail, getRandomFriends, getRandomThought, genRandomIndex };
