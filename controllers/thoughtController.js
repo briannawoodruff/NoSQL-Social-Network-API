@@ -1,11 +1,9 @@
-const { Thought, User } = require('../models');
+const { Thought } = require('../models');
 
 module.exports = {
     // get all thoughts
     getThoughts(req, res) {
         Thought.find()
-            //   .populate({path: 'username', select: '-__v'})
-            //   .select('-__v')
             .then((thoughts) => res.json(thoughts))
             .catch((err) => {
                 console.error({ message: err });
@@ -78,17 +76,17 @@ module.exports = {
     // delete reaction
     deleteReaction(req, res) {
         Thought.findOneAndUpdate(
-          { _id: req.params.thoughtId },
-          { $set: { reactions: req.body } },
-          { new: true }
+            { _id: req.params.thoughtId },
+            { $set: { reactions: req.body } },
+            { new: true }
         )
-          .then(thoughts => {
-            if (!thoughts) {
-              res.status(404).json({ message: 'That did not work!'});
-              return;
-            }
-           res.json(thoughts);
-          })
-          .catch(err => res.json(err));
-      }
+            .then(thoughts => {
+                if (!thoughts) {
+                    res.status(404).json({ message: 'That did not work!' });
+                    return;
+                }
+                res.json(thoughts);
+            })
+            .catch(err => res.json(err));
+    }
 };
