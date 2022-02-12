@@ -4,11 +4,6 @@ module.exports = {
   // get all users
   getUsers(req, res) {
     User.find({})
-    // populate users thoughts
-    // .populate('thoughts')
-    // populate user friends
-    // .populate('friends')
-    .select('-__v')
     .then(users => res.json(users))
     .catch(err => {
         console.log(err);
@@ -32,7 +27,7 @@ module.exports = {
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => res.status(500).json(err));
   },
-//   // update a user by id
+  // update a user by id
   updateUser(req, res) {
     User.findOneAndUpdate(
       { users: req.params.userId },
@@ -49,18 +44,9 @@ module.exports = {
         res.status(500).json(err);
       });
   },
-//   // delete user by id
+  // delete user by id
   deleteUser(req, res) {
     User.findOneAndRemove({ _id: req.params.userId })
-      .then((user) =>
-        !user
-          ? res.status(404).json({ message: 'No user with this id!' })
-          : User.findOneAndUpdate(
-              { _id: req.params.userId },
-              { $pull: { videos: req.params.userId } },
-              { new: true }
-            )
-      )
       .then((user) =>
         !user
           ? res

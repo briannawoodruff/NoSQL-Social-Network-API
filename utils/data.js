@@ -100,7 +100,7 @@ const possibleReactions = [
     "Existential crisis",
     "Too self aware.",
     "No, thanks.",
-    "It's rought out here.",
+    "It's rough out here.",
     "Okay...",
     "Why though",
     "Did you make that up?",
