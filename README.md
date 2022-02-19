@@ -13,7 +13,7 @@
   * [Questions](#questions)
   
   ## Usage:
-  ### Watch Walkthrough on [Screencastify](https://watch.screencastify.com/v/MKRCgRKvVVYgoE5GWHkF) <br /> <br /> 
+  ### Watch Walkthrough on [Drive](https://drive.google.com/file/d/1nJnXewQKl-ivcwexVqIM2Q3hACQkD4W7/view?usp=sharing) <br /> <br /> 
   ![Demo gif](assets/NoSQL-SocialNetworkAPI.gif) <br />  <br /> To test this application, run `npm run seed` to seed the database and `npm run dev` to start the server. Open Insomnia or Postman with your server url `localhost:3001/` to make requests.
   <br />
 
